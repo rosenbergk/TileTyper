@@ -415,9 +415,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 5416999976496670641, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
   spawnRangeX: 9.5
-  initialSpawnInterval: 2
+  initialSpawnInterval: 5
   minSpawnInterval: 0.5
-  spawnIntervalAcceleration: 0.01
+  spawnIntervalAcceleration: 0.02
 --- !u!4 &1734975106
 Transform:
   m_ObjectHideFlags: 0
