@@ -13,6 +13,16 @@ public class TileScript : MonoBehaviour
     private float currentSpeed;
     private TextMeshPro textMesh;
 
+    public void SetTileWord(String word) {
+        tileWord = word;
+        if (textMesh != null) {
+            textMesh.text = word;
+            Debug.Log("Tile created with word " + word);
+        } else {
+            Debug.Log("Text mesh is null");
+        }
+    }
+
     private void Awake() {
         textMesh = GetComponentInChildren<TextMeshPro>();
     }
@@ -30,13 +40,28 @@ public class TileScript : MonoBehaviour
         }
     }
 
-    public void SetTileWord(String word) {
-        tileWord = word;
-        if (textMesh != null) {
-            textMesh.text = word;
-            Debug.Log("Tile created with word " + word);
+    private void OnEnable() {
+        TypingManagerScript manager = FindFirstObjectByType<TypingManagerScript>();
+
+        if (manager != null) {
+            manager.RegisterTile(this);
         } else {
-            Debug.Log("Text mesh is null");
+            Debug.LogError("Typing Manager not found in the scene");
         }
+    }
+
+    private void OnDisable() {
+        TypingManagerScript manager = FindFirstObjectByType<TypingManagerScript>();
+
+        if (manager != null) {
+            manager.UnregisterTile(this);
+        } else {
+            Debug.LogError("Typing Manager not found in the scene");
+        }
+    }
+
+    public void DisableTile() {
+        gameObject.SetActive(false);
+        FindFirstObjectByType<TypingManagerScript>()?.UnregisterTile(this);
     }
 }
