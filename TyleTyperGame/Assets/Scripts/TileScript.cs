@@ -1,13 +1,22 @@
 // TileScript.cs
+using System;
 using UnityEngine;
+using TMPro;
 
 public class TileScript : MonoBehaviour
 {
+    public String tileWord;
+
     [SerializeField] private float initialSpeed = 0.5f;
     [SerializeField] private float maximumSpeed = 5f;
     [SerializeField] private float spawnIntervalAcceleration = 0.05f;
     private float currentSpeed;
+    private TextMeshPro textMesh;
 
+    private void Awake() {
+        textMesh = GetComponentInChildren<TextMeshPro>();
+    }
+    
     private void Start() {
         float elapsedTime = GameManager.Instance.GetElapsedTime();
         currentSpeed = Mathf.Min(maximumSpeed, initialSpeed + spawnIntervalAcceleration * elapsedTime);
@@ -18,6 +27,16 @@ public class TileScript : MonoBehaviour
         transform.Translate(Vector2.down * currentSpeed * Time.deltaTime);
         if (transform.position.y < -8) {
             Destroy(gameObject);
+        }
+    }
+
+    public void SetTileWord(String word) {
+        tileWord = word;
+        if (textMesh != null) {
+            textMesh.text = word;
+            Debug.Log("Tile created with word " + word);
+        } else {
+            Debug.Log("Text mesh is null");
         }
     }
 }
