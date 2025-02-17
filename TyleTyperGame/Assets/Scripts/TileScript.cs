@@ -35,10 +35,12 @@ public class TileScript : MonoBehaviour
     private void Update()
     {
         transform.Translate(Vector2.down * currentSpeed * Time.deltaTime);
-        if (transform.position.y < -8) {
-            Destroy(gameObject);
+        if (transform.position.y < -8)
+        {
+            DisableTile();
         }
     }
+
 
     private void OnEnable() {
         TypingManagerScript manager = FindFirstObjectByType<TypingManagerScript>();
@@ -60,8 +62,16 @@ public class TileScript : MonoBehaviour
         }
     }
 
-    public void DisableTile() {
+    public void DisableTile()
+    {
+        tileWord = "";
+        if (textMesh != null)
+        {
+            textMesh.text = "";
+        }
+
         gameObject.SetActive(false);
         FindFirstObjectByType<TypingManagerScript>()?.UnregisterTile(this);
+        TilePool.Instance.ReturnTile(this);
     }
 }

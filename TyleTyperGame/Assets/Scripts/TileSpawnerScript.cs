@@ -16,14 +16,16 @@ public class TileSpawner : MonoBehaviour
 
     private void SpawnTile()
     {
-        GameObject tilePrefab = GetRandomTile();
+        GameObject randomTilePrefab = GetRandomTile();
+        string tileName = randomTilePrefab.name;
+
+        TileScript tileScript = TilePool.Instance.GetTile(tileName);
 
         float randomX = Random.Range(-spawnRangeX, spawnRangeX);
         Vector2 spawnPosition = new Vector2(randomX, transform.position.y);
-        GameObject tileInstance = Instantiate(tilePrefab, spawnPosition, Quaternion.identity);
+        tileScript.transform.position = spawnPosition;
 
-        TileScript tileScript = tileInstance.GetComponent<TileScript>();
-        tileScript.SetTileWord(tilePrefab.name.Replace("Tile", ""));
+        tileScript.SetTileWord(tileName.Replace("Tile", ""));
 
         float elapsedTime = GameManager.Instance.GetElapsedTime();
         float currentSpawnInterval = Mathf.Max(minSpawnInterval, initialSpawnInterval - (elapsedTime * spawnIntervalAcceleration));
