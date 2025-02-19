@@ -32,6 +32,7 @@ public class TypingManagerScript : MonoBehaviour {
     private void CheckForMatchingTile() {
         for (int i = 0; i < activeTiles.Count; ++i) {
             if (activeTiles[i].tileWord.Equals(currentInput, System.StringComparison.OrdinalIgnoreCase)) {
+                GameManager.Instance.AddScore();
                 activeTiles[i].DisableTile();
                 currentInput = "";
 
