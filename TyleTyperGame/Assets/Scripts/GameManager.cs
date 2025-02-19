@@ -1,6 +1,7 @@
 // GameManager.cs
 using UnityEngine;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     public TextMeshPro scoreText;
     private float gameStartTime;
     private int score = 0;
+    private bool gameStarted = false;
+    public event Action OnGameStarted;
 
     void Start() {
         score = 0;
@@ -19,7 +22,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            gameStartTime = Time.time;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -27,8 +29,19 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    public void StartGame() {
+        gameStarted = true;
+        gameStartTime = Time.time;
+        OnGameStarted?.Invoke();
+    }
+
+    public bool IsGameStarted() {
+        return gameStarted;
+    }
 
     public void AddScore() {
+        if (!gameStarted) return;
         score++;
         UpdateScoreUI();
     }
@@ -40,6 +53,7 @@ public class GameManager : MonoBehaviour
     }
     public float GetElapsedTime()
     {
+        if (!gameStarted) return 0;
         return Time.time - gameStartTime;
     }
 }

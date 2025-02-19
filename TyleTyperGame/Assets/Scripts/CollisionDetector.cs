@@ -7,6 +7,7 @@ public class CollisionDetector : MonoBehaviour
     {
         if (other.gameObject.CompareTag("DeathCollider"))
         {
+            AudioManager.Instance.PlayGameOverSound();
             Debug.Log("Tile hit DeathCollider! Restarting scene.");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

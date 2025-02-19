@@ -23,5 +23,7 @@ public class CountdownManager : MonoBehaviour
         countdownText.text = "GO!";
         yield return new WaitForSeconds(1f);
         countdownText.gameObject.SetActive(false);
+
+        GameManager.Instance.StartGame();
     }
 }
