@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
         gameOver = false;
         gameStartTime = Time.time;
+
         OnGameStarted?.Invoke();
     }
 
