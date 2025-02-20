@@ -322,7 +322,7 @@ MonoBehaviour:
   tileWord: 
   initialSpeed: 0.5
   maximumSpeed: 5
-  spawnIntervalAcceleration: 0.03
+  spawnIntervalAcceleration: 0.022
 --- !u!1 &5943106853913545133
 GameObject:
   m_ObjectHideFlags: 0
