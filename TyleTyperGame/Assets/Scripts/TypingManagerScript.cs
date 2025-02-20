@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class TypingManagerScript : MonoBehaviour {
     public TextMeshPro playerInputText;
+    public TextShakeEffect textShakeEffect;
+
     private string currentInput = "";
     private List<TileScript> activeTiles = new List<TileScript>();
     private Coroutine blinkingCoroutine;
@@ -52,7 +54,6 @@ public class TypingManagerScript : MonoBehaviour {
                 currentInput = currentInput.Substring(0, currentInput.Length - 1);
             } else if (c == '\r' || c == '\n') {
                 CheckForMatchingTile();
-                currentInput = "";
             } else if (!char.IsControl(c)) {
                 currentInput += c;
                 AudioManager.Instance.PlayTypingSound();
@@ -72,6 +73,8 @@ public class TypingManagerScript : MonoBehaviour {
     }
 
     private void CheckForMatchingTile() {
+        bool wordFound = false;
+        
         for (int i = 0; i < activeTiles.Count; ++i) {
             if (activeTiles[i].tileWord.Equals(currentInput, System.StringComparison.OrdinalIgnoreCase)) {
                 GameManager.Instance.AddScore();
@@ -81,7 +84,15 @@ public class TypingManagerScript : MonoBehaviour {
 
                 playerInputText.text = currentInput;
 
+                wordFound = true;
+
                 break;
+            }
+        }
+
+        if (!wordFound) {
+            if (textShakeEffect != null) {
+                textShakeEffect.TriggerShake();
             }
         }
     }
