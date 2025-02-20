@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public TextMeshPro scoreText;
     private float gameStartTime;
     private bool gameOver = false;
-    private int score = 0;
+    private int score;
     private bool gameStarted = false;
     public event Action OnGameStarted;
 
@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
         gameOver = false;
         gameStartTime = Time.time;
+
+        FindScoreText();
+        UpdateScoreUI();
+
         TileScript.currentSpeed = TileScript.initialSpeed;
         TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
 
@@ -46,6 +50,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         if (gameOver) return;
+        score = 0;
         gameOver = true;
         Debug.Log("Game Over! Returning to menu...");
         Invoke(nameof(ReturnToMainMenu), 0.1f);
@@ -61,15 +66,38 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddScore() {
-        if (!gameStarted) return;
+        
+        if (!gameStarted) {
+            Debug.Log("Game has not started");
+            return;
+        }
+
         score++;
+        Debug.Log("Score is " + score);
         UpdateScoreUI();
     }
 
     private void UpdateScoreUI() {
         if (scoreText != null) {
             scoreText.text = score.ToString();
+        } else {
+            Debug.Log("Score text is null");
         } 
+    }
+
+    private void FindScoreText()
+    {
+        GameObject scoreObject = GameObject.FindGameObjectWithTag("ScoreText");
+        
+        if (scoreObject != null)
+        {
+            scoreText = scoreObject.GetComponent<TextMeshPro>();
+            Debug.Log("ScoreText found and assigned.");
+        }
+        else
+        {
+            Debug.LogError("Score text is null! Ensure it's tagged as 'ScoreText'.");
+        }
     }
 
     public float GetElapsedTime()

@@ -246,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startMenu: {fileID: 43402386}
   startText: {fileID: 1095748525}
+  eventSystem: {fileID: 1304657280}
 --- !u!1 &318254697
 GameObject:
   m_ObjectHideFlags: 0

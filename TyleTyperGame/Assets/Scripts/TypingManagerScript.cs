@@ -22,7 +22,7 @@ public class TypingManagerScript : MonoBehaviour {
 
     private void OnDestroy()
     {
-        GameManager.Instance.OnGameStarted -= StartCursorBlinking; // ✅ Unsubscribe to prevent errors
+        GameManager.Instance.OnGameStarted -= StartCursorBlinking;
     }
 
     private void StartCursorBlinking()
@@ -30,7 +30,7 @@ public class TypingManagerScript : MonoBehaviour {
         if (!hasStartedBlinking)
         {
             hasStartedBlinking = true;
-            blinkingCoroutine = StartCoroutine(BlinkCursor()); // ✅ Start blinking when game starts
+            blinkingCoroutine = StartCoroutine(BlinkCursor());
         }
     }
 
@@ -41,7 +41,7 @@ public class TypingManagerScript : MonoBehaviour {
         {
             if (playerInputText != null)
             {
-                playerInputText.text = ""; // Hide cursor during countdown
+                playerInputText.text = "";
             }
             return;
         }
