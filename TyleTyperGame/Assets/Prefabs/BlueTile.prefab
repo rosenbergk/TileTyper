@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2114177770807448514
+--- !u!1001 &1996142464645039611
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,10 +9,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 550036963082628958, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 550036963082628958, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
       propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
@@ -20,25 +16,9 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3195199308582520982, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3195199308582520982, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 39.6912
-      objectReference: {fileID: 0}
-    - target: {fileID: 3195199308582520982, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -216.8937
-      objectReference: {fileID: 0}
     - target: {fileID: 5416999976496670641, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
       propertyPath: m_Name
       value: BlueTile
-      objectReference: {fileID: 0}
-    - target: {fileID: 8750912348422304974, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8750912348422304974, guid: f0cf70fcfc2fc3441bd33c4b0719f6b2, type: 3}
       propertyPath: m_LocalPosition.x
