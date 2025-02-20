@@ -4,10 +4,10 @@ using UnityEngine;
 public class TileSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] tilePrefabs;
-    [SerializeField] private float spawnRangeX = 9.5f;
-    [SerializeField] private float initialSpawnInterval = 2f;
-    [SerializeField] private float minSpawnInterval = 0.5f;
-    [SerializeField] private float spawnIntervalAcceleration = 0.05f;
+    [SerializeField] private float spawnRangeX;
+    [SerializeField] private float initialSpawnInterval;
+    [SerializeField] private float minSpawnInterval;
+    [SerializeField] private float spawnIntervalAcceleration;
 
     private void Start()
     {
