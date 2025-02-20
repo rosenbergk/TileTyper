@@ -3,14 +3,18 @@ using UnityEngine;
 
 public class TileSpawner : MonoBehaviour
 {
+    public static float initialSpawnInterval = 5;
+    public static float currentSpawnInterval;
+
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private float spawnRangeX;
-    [SerializeField] private float initialSpawnInterval;
     [SerializeField] private float minSpawnInterval;
     [SerializeField] private float spawnIntervalAcceleration;
+    
 
     private void Start()
     {
+        currentSpawnInterval = initialSpawnInterval;
         Invoke(nameof(SpawnTile), initialSpawnInterval);
     }
 
@@ -28,7 +32,7 @@ public class TileSpawner : MonoBehaviour
         tileScript.SetTileWord(tileName.Replace("Tile", ""));
 
         float elapsedTime = GameManager.Instance.GetElapsedTime();
-        float currentSpawnInterval = Mathf.Max(minSpawnInterval, initialSpawnInterval - (elapsedTime * spawnIntervalAcceleration));
+        currentSpawnInterval = Mathf.Max(minSpawnInterval, initialSpawnInterval - (elapsedTime * spawnIntervalAcceleration));
         Invoke(nameof(SpawnTile), currentSpawnInterval);
     }
 

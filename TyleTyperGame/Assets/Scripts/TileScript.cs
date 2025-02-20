@@ -6,11 +6,12 @@ using TMPro;
 public class TileScript : MonoBehaviour
 {
     public String tileWord;
+    public static float currentSpeed;
+    public static float initialSpeed = 0.5f;
 
-    [SerializeField] private float initialSpeed = 0.5f;
     [SerializeField] private float maximumSpeed = 5f;
     [SerializeField] private float spawnIntervalAcceleration = 0.05f;
-    private float currentSpeed;
+
     private TextMeshPro textMesh;
 
     public void SetTileWord(String word) {

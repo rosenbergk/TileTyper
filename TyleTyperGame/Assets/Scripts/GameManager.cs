@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
         gameOver = false;
         gameStartTime = Time.time;
+        TileScript.currentSpeed = TileScript.initialSpeed;
+        TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
 
         OnGameStarted?.Invoke();
     }
@@ -46,8 +48,9 @@ public class GameManager : MonoBehaviour
         if (gameOver) return;
         gameOver = true;
         Debug.Log("Game Over! Returning to menu...");
-        Invoke(nameof(ReturnToMainMenu), 2f);
+        Invoke(nameof(ReturnToMainMenu), 0.1f);
     }
+
     private void ReturnToMainMenu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
             scoreText.text = score.ToString();
         } 
     }
+
     public float GetElapsedTime()
     {
         if (!gameStarted) return 0;
