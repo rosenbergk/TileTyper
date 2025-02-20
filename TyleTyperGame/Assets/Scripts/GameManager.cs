@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        transform.SetParent(null);
+
         if (Instance == null)
         {
             Instance = this;

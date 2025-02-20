@@ -7,8 +7,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip correctWordSound;
     public AudioClip gameOverSound;
     private AudioSource audioSource;
+    
     private void Awake()
     {
+        transform.SetParent(null);
+
         if (Instance == null)
         {
             Instance = this;
