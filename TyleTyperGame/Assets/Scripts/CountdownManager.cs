@@ -1,14 +1,20 @@
 using TMPro;
 using UnityEngine;
+using System.Collections;
 
 public class CountdownManager : MonoBehaviour
 {
     public TextMeshPro countdownText;
     private float countdownTime = 5f;
+    private bool countdownStarted = false;
 
-    private void Start()
+    public void StartCountdown()
     {
-        StartCoroutine(CountdownRoutine());
+        if (!countdownStarted)
+        {
+            countdownStarted = true;
+            StartCoroutine(CountdownRoutine());
+        }
     }
 
     private System.Collections.IEnumerator CountdownRoutine()

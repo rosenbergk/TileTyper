@@ -9,7 +9,10 @@ public class CollisionDetector : MonoBehaviour
         {
             AudioManager.Instance.PlayGameOverSound();
             Debug.Log("Tile hit DeathCollider! Restarting scene.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
         }
     }
 }
