@@ -2,12 +2,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using UnityEngine.EventSystems;
 
 
 public class StartMenuManager : MonoBehaviour
 {
     public GameObject startMenu;
     public TextMeshProUGUI startText;
+    public EventSystem eventSystem;
     private bool gameStarted = false;
 
 
@@ -29,6 +31,7 @@ public class StartMenuManager : MonoBehaviour
     private System.Collections.IEnumerator LoadColorLevelAndStartCountdown()
     {
         SceneManager.LoadScene("ColorLevel", LoadSceneMode.Additive);
+        Destroy(eventSystem.gameObject);
         yield return null;
 
         CountdownManager countdownManager = FindAnyObjectByType<CountdownManager>();
