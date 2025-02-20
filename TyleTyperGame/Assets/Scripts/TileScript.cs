@@ -57,8 +57,6 @@ public class TileScript : MonoBehaviour
 
         if (manager != null) {
             manager.UnregisterTile(this);
-        } else {
-            Debug.LogError("Typing Manager not found in the scene");
         }
     }
 
