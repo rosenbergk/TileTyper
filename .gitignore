@@ -76,3 +76,6 @@ TyleTyperGame/.vscode/
 TyleTyperGame/Logs/
 TyleTyperGame/Temp/
 TyleTyperGame/UserSettings/
+
+# Custom ignore files
+GameBugs.txt
