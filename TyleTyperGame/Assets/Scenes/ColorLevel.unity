@@ -375,7 +375,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputText: {fileID: 867604279}
-  textShakeEffect: {fileID: 0}
 --- !u!4 &136488789
 Transform:
   m_ObjectHideFlags: 0
@@ -1068,7 +1067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeDuration: 0.3
-  shakeMagnitude: 0.1
+  shakeMagnitude: 10
 --- !u!114 &867604279
 MonoBehaviour:
   m_ObjectHideFlags: 0

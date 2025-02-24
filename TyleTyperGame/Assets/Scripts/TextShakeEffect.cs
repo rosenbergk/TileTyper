@@ -4,15 +4,19 @@ using System.Collections;
 
 public class TextShakeEffect : MonoBehaviour
 {
-    private TextMeshPro textMesh;
     private Vector3 originalPosition;
+    private RectTransform rectTransform;
     public float shakeDuration = 0.3f;
-    public float shakeMagnitude = 0.1f;
+    public float shakeMagnitude = 20f;
 
     void Start()
     {
-        textMesh = GetComponent<TextMeshPro>();
-        originalPosition = transform.localPosition;
+        rectTransform = GetComponent<RectTransform>();
+        if (rectTransform == null)
+        {
+            Debug.LogError("TextShakeEffect: No RectTransform found! Make sure this is a UI element.");
+        }
+        originalPosition = rectTransform.anchoredPosition;
     }
 
     public void TriggerShake()
@@ -30,12 +34,12 @@ public class TextShakeEffect : MonoBehaviour
             float offsetX = Random.Range(-shakeMagnitude, shakeMagnitude);
             float offsetY = Random.Range(-shakeMagnitude, shakeMagnitude);
 
-            transform.localPosition = originalPosition + new Vector3(offsetX, offsetY, 0);
+            rectTransform.anchoredPosition = originalPosition + new Vector3(offsetX, offsetY, 0);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        transform.localPosition = originalPosition;
+        rectTransform.anchoredPosition = originalPosition;
     }
 }

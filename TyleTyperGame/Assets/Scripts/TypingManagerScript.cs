@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class TypingManagerScript : MonoBehaviour {
     public TextMeshProUGUI playerInputText;
-    public TextShakeEffect textShakeEffect;
+    private TextShakeEffect textShakeEffect;
 
     private string currentInput = "";
     private List<TileScript> activeTiles = new List<TileScript>();
@@ -17,6 +17,7 @@ public class TypingManagerScript : MonoBehaviour {
 
     private void Start()
     {
+        textShakeEffect = playerInputText.GetComponent<TextShakeEffect>();
         GameManager.Instance.OnGameStarted += StartCursorBlinking;
     }
 
