@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PauseManager : MonoBehaviour
 {
@@ -38,7 +39,6 @@ public class PauseManager : MonoBehaviour
     }
 
     public void GoToMainMenu() {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        GameOverManager.GoToMainMenu();
     }
 }

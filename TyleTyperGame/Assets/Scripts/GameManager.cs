@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private float gameStartTime;
     private bool gameOver = false;
-    private int score;
+    public int score;
     private bool gameStarted = false;
     public event Action OnGameStarted;
 
@@ -50,17 +50,12 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         if (gameOver) return;
-        score = 0;
         gameOver = true;
-        Debug.Log("Game Over! Returning to menu...");
-        Invoke(nameof(ReturnToMainMenu), 0.1f);
-    }
+        Debug.Log("Game Over!");
 
-    private void ReturnToMainMenu()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        GameOverManager.Instance.ShowGameOver(score);
     }
-
+    
     public bool IsGameStarted() {
         return gameStarted && !gameOver;
     }
