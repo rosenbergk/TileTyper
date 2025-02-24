@@ -6,7 +6,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public TextMeshPro scoreText;
+    public TextMeshProUGUI scoreText;
     private float gameStartTime;
     private bool gameOver = false;
     private int score;
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
         
         if (scoreObject != null)
         {
-            scoreText = scoreObject.GetComponent<TextMeshPro>();
+            scoreText = scoreObject.GetComponent<TextMeshProUGUI>();
             Debug.Log("ScoreText found and assigned.");
         }
         else

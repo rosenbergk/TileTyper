@@ -4,7 +4,7 @@ using System.Collections;
 
 public class CountdownManager : MonoBehaviour
 {
-    public TextMeshPro countdownText;
+    public TextMeshProUGUI countdownText;
     private float countdownTime = 5f;
     private bool countdownStarted = false;
 

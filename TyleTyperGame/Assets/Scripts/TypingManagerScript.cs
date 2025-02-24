@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 public class TypingManagerScript : MonoBehaviour {
-    public TextMeshPro playerInputText;
+    public TextMeshProUGUI playerInputText;
     public TextShakeEffect textShakeEffect;
 
     private string currentInput = "";
