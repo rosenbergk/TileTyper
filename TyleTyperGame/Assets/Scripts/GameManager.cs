@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public TextMeshProUGUI scoreText;
     private float gameStartTime;
-    private bool gameOver = false;
+    public bool gameOver = false;
     public int score;
     private bool gameStarted = false;
     public event Action OnGameStarted;
