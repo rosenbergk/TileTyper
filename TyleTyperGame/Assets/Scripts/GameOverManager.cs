@@ -27,7 +27,10 @@ public class GameOverManager : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
-        finalScoreText.text = finalScore.ToString();
+        
+        if (SceneManager.GetActiveScene().name != "TutorialLevel") {
+            finalScoreText.text = finalScore.ToString();
+        }
     }
 
     public void RestartGame()
