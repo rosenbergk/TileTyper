@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,14 +17,7 @@ public class GameManager : MonoBehaviour
     void Start() {
         score = 0;
         UpdateScoreUI();
-
-
-        CountdownManager countdownManager = FindAnyObjectByType<CountdownManager>();
-        if (countdownManager != null)
-        {
-            countdownManager.StartCountdown();
-        }
-
+        
         TileScript.currentSpeed = TileScript.initialSpeed;
         TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
     }
@@ -36,10 +30,29 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+    
+    private void OnDestroy() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        if (scene.name == "ColorLevel" || scene.name == "TutorialLevel")
+        {
+            score = 0;
+            gameStarted = false;
+            gameOver = false;
+            gameStartTime = 0f;
+            FindScoreText();
+            UpdateScoreUI();
+            TileScript.currentSpeed = TileScript.initialSpeed;
+            TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
         }
     }
     
@@ -73,12 +86,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddScore() {
-        
         if (!gameStarted) {
             Debug.Log("Game has not started");
             return;
         }
-
         score++;
         Debug.Log("Score is " + score);
         UpdateScoreUI();
@@ -95,7 +106,6 @@ public class GameManager : MonoBehaviour
     private void FindScoreText()
     {
         GameObject scoreObject = GameObject.FindGameObjectWithTag("ScoreText");
-        
         if (scoreObject != null)
         {
             scoreText = scoreObject.GetComponent<TextMeshProUGUI>();

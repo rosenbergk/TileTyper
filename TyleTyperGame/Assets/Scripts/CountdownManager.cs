@@ -9,6 +9,14 @@ public class CountdownManager : MonoBehaviour
     private float countdownTime = 5f;
     private bool countdownStarted = false;
 
+    private void OnEnable()
+    {
+        countdownTime = 5f;
+        countdownStarted = false;
+        countdownText.gameObject.SetActive(true);
+        StartCountdown();
+    }
+
     public void StartCountdown()
     {
         if (!countdownStarted)
@@ -18,7 +26,7 @@ public class CountdownManager : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator CountdownRoutine()
+    private IEnumerator CountdownRoutine()
     {
         while (countdownTime > 0)
         {
