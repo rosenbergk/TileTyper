@@ -16,6 +16,16 @@ public class GameManager : MonoBehaviour
     void Start() {
         score = 0;
         UpdateScoreUI();
+
+
+        CountdownManager countdownManager = FindAnyObjectByType<CountdownManager>();
+        if (countdownManager != null)
+        {
+            countdownManager.StartCountdown();
+        }
+
+        TileScript.currentSpeed = TileScript.initialSpeed;
+        TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
     }
 
     private void Awake()
@@ -37,6 +47,8 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
         gameOver = false;
         gameStartTime = Time.time;
+
+        Debug.Log("Game has started!");
 
         FindScoreText();
         UpdateScoreUI();

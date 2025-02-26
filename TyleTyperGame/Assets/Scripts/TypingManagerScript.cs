@@ -34,7 +34,6 @@ public class TypingManagerScript : MonoBehaviour {
         }
     }
 
-
     private void Update()
     {
         if (!GameManager.Instance.IsGameStarted()) 
