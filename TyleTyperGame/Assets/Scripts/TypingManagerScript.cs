@@ -13,7 +13,6 @@ public class TypingManagerScript : MonoBehaviour {
     private Coroutine blinkingCoroutine;
     private bool isCursorVisible = true;
     private bool hasStartedBlinking = false;
-    private bool isTyping = false;
 
     private void Start()
     {
