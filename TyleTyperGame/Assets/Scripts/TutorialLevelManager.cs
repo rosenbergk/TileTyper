@@ -111,4 +111,10 @@ public class TutorialLevelManager : MonoBehaviour
         isDisplayingTutorial = false;
         tutorialText.text = ""; 
     }
+
+    private void OnDestroy() {
+        if (GameManager.Instance != null) {
+            GameManager.Instance.OnGameStarted -= StartTutorialMessages;
+        }
+    }
 }
