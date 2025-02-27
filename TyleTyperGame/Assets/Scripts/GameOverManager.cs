@@ -36,7 +36,7 @@ public class GameOverManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("ColorLevel");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public static void GoToMainMenu()

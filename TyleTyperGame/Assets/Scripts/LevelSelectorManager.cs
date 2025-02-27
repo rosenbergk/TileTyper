@@ -20,4 +20,9 @@ public class LevelSelectorManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void StartShapeLevel() {
+        GameManager.Instance.StartGame(true);
+        SceneManager.LoadScene("ShapeLevel");
+    }
 }
