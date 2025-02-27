@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (scene.name == "ColorLevel" || scene.name == "TutorialLevel")
+        if (scene.name != "MainMenu" && scene.name != "LevelSelector")
         {
             score = 0;
             gameStarted = false;

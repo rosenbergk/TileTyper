@@ -25,4 +25,9 @@ public class LevelSelectorManager : MonoBehaviour
         GameManager.Instance.StartGame(true);
         SceneManager.LoadScene("ShapeLevel");
     }
+
+    public void StartAnimalLevel() {
+        GameManager.Instance.StartGame(true);
+        SceneManager.LoadScene("AnimalLevel");
+    }
 }
