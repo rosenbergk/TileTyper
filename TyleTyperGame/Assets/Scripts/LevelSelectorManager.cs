@@ -4,14 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectorManager : MonoBehaviour
 {
-    public void LoadTutorialLevel()
+    public void StartNormalGame()
     {
-        SceneManager.LoadScene("TutorialLevel");
+        GameManager.Instance.StartGame(false);
+        SceneManager.LoadScene("ColorLevel");
     }
 
-    public void LoadColorLevel()
+    public void StartTutorialGame()
     {
-        SceneManager.LoadScene("ColorLevel");
+        GameManager.Instance.StartGame(true);
+        SceneManager.LoadScene("TutorialLevel");
     }
 
     public void BackToMainMenu()

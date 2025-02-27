@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public TextMeshProUGUI scoreText;
+    public bool isTutorialMode = false;
     private float gameStartTime;
     public bool gameOver = false;
     public int score;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
             gameStarted = false;
             gameOver = false;
             gameStartTime = 0f;
+            isTutorialMode = (scene.name == "TutorialLevel");
             FindScoreText();
             UpdateScoreUI();
             TileScript.currentSpeed = TileScript.initialSpeed;
@@ -56,9 +58,10 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    public void StartGame() {
+    public void StartGame(bool tutorialMode = false) {
         gameStarted = true;
         gameOver = false;
+        isTutorialMode = tutorialMode;
         gameStartTime = Time.time;
 
         Debug.Log("Game has started!");
@@ -78,7 +81,14 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         Debug.Log("Game Over!");
 
-        GameOverManager.Instance.ShowGameOver(score);
+        if (isTutorialMode)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            GameOverManager.Instance.ShowGameOver(score);
+        }
     }
     
     public bool IsGameStarted() {

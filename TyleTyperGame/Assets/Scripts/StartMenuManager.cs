@@ -27,6 +27,18 @@ public class StartMenuManager : MonoBehaviour
         }
     }
 
+    public void StartNormalGame()
+    {
+        GameManager.Instance.StartGame(false);
+        SceneManager.LoadScene("ColorLevel");
+    }
+
+    public void StartTutorialGame()
+    {
+        GameManager.Instance.StartGame(true); 
+        SceneManager.LoadScene("TutorialLevel");
+    }
+
     private IEnumerator BlinkCursor()
     {
         bool isCursorVisible = true;
