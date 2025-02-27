@@ -18,22 +18,40 @@ public class TutorialLevelManager : MonoBehaviour
     {
         if (!GameManager.Instance.isTutorialMode)
         {
+            Debug.LogError("Tutorial Mode is OFF, destroying TutorialLevelManager.");
             Destroy(gameObject);
             return;
         }
-        tutorialText.text = blinkingCursor;
+
+        if (tutorialText == null)
+        {
+            Debug.LogError("tutorialText is NULL! Assign the UI Text in Unity.");
+            return;
+        }
+
+        Debug.Log("Tutorial Mode Activated!");
+
+        tutorialText.gameObject.SetActive(false); 
         isDisplayingTutorial = true;
+
+        GameManager.Instance.OnGameStarted += StartTutorialMessages;
+    }
+
+
+    private void StartTutorialMessages()
+    {
+        tutorialText.gameObject.SetActive(true);
+        tutorialText.text = blinkingCursor;       
 
         tutorialMessages.Enqueue("Type the word on a tile to destroy it!");
         tutorialMessages.Enqueue("Don't let tiles fall below the screen!");
         tutorialMessages.Enqueue("Tiles get faster and spawn more frequently over time!");
-        tutorialMessages.Enqueue("Good luck... you're gonna need it!");
+        tutorialMessages.Enqueue("Good luck... ");
+        tutorialMessages.Enqueue("...you're gonna need it!");
 
         StartCoroutine(BlinkCursor());
-        StartCoroutine(DisplayTutorialMessages()); 
+        StartCoroutine(DisplayTutorialMessages());
     }
-
-
     private IEnumerator BlinkCursor()
     {
         bool isCursorVisible = true;
@@ -56,7 +74,7 @@ public class TutorialLevelManager : MonoBehaviour
         isTyping = true;
         tutorialText.text = blinkingCursor;
 
-        yield return new WaitForSeconds(0.5f); // ✅ Delay before typing begins
+        yield return new WaitForSeconds(0.5f);
 
         string displayedText = "";
         foreach (char letter in message)
@@ -67,7 +85,7 @@ public class TutorialLevelManager : MonoBehaviour
         }
 
         tutorialText.text = displayedText;
-        yield return new WaitForSeconds(3f); // ✅ Extended delay before deleting
+        yield return new WaitForSeconds(4f);
 
         for (int i = displayedText.Length; i >= 0; i--)
         {
@@ -81,20 +99,16 @@ public class TutorialLevelManager : MonoBehaviour
 
     private IEnumerator DisplayTutorialMessages()
     {
-        if (tutorialMessages.Count == 0)
-        {
-            Debug.LogWarning("No tutorial messages found! Check tutorialMessages queue.");
-        }
 
         while (tutorialMessages.Count > 0)
         {
             string message = tutorialMessages.Dequeue();
             yield return StartCoroutine(TypeMessage(message));
-            yield return new WaitForSeconds(2f); // ✅ Extra delay between messages
+            yield return new WaitForSeconds(4f); 
         }
 
         Debug.Log("All tutorial messages displayed!");
         isDisplayingTutorial = false;
-        tutorialText.text = ""; // ✅ Remove blinking cursor when done
+        tutorialText.text = ""; 
     }
 }

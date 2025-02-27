@@ -35,19 +35,19 @@ public class TypingManagerScript : MonoBehaviour {
         }
     }
 
-    private void Update()
+private void Update()
+{
+    if (!GameManager.Instance.IsGameStarted()) 
     {
-        if (!GameManager.Instance.IsGameStarted()) 
+        if (playerInputText != null)
         {
-            if (playerInputText != null)
-            {
-                playerInputText.text = "";
-            }
-            return;
+            playerInputText.text = "";
         }
-        HandleTypingInput();
+        return;
     }
 
+    HandleTypingInput();
+}
     private void HandleTypingInput() {
         foreach (char c in Input.inputString) {
             if (c == '\b' && currentInput.Length > 0) {
