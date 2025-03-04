@@ -9,12 +9,19 @@ public class TileSpawner : MonoBehaviour
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private float spawnRangeX;
     [SerializeField] private float minSpawnInterval;
-    [SerializeField] private float spawnIntervalAcceleration;
-    
+    [SerializeField] private float decayRate = 0.02f;
+    [SerializeField] private float fluctationMagnitude = 0.3f;
+    [SerializeField] private float noiseSpeed = 0.1f;
+
+    private float noiseOffset;
+    private float hordeTimer = 0f;
+    private bool inHordePhase = false;
+    private float hordeDuration = 5f;
 
     private void Start()
     {
         currentSpawnInterval = initialSpawnInterval;
+        noiseOffset = Random.Range(0f, 100f);
         Invoke(nameof(SpawnTile), initialSpawnInterval);
     }
 
@@ -32,7 +39,38 @@ public class TileSpawner : MonoBehaviour
         tileScript.SetTileWord(tileName.Replace("Tile", ""));
 
         float elapsedTime = GameManager.Instance.GetElapsedTime();
-        currentSpawnInterval = Mathf.Max(minSpawnInterval, initialSpawnInterval - (elapsedTime * spawnIntervalAcceleration));
+        float noise = Mathf.PerlinNoise(noiseOffset, elapsedTime * noiseSpeed) * 2f - 1f;
+
+        if (inHordePhase)
+        {
+            // Track how long we have been in the horde
+            hordeTimer += currentSpawnInterval;
+            if (hordeTimer >= hordeDuration)
+            {
+                inHordePhase = false;
+                hordeTimer = 0f;
+                Debug.Log("[TileSpawner] Exiting Horde Phase...");
+            }
+            // Keep spawn rate at 1s during horde
+            currentSpawnInterval = 1f;
+        }
+        else
+        {
+            // Apply normal spawn rate logic
+            currentSpawnInterval = Mathf.Max(minSpawnInterval, initialSpawnInterval - (elapsedTime * decayRate) + (noise * fluctationMagnitude));
+
+            // If the interval reaches 1s, enter the horde phase ONCE
+            if (currentSpawnInterval <= 1f && !inHordePhase)
+            {
+                inHordePhase = true;
+                hordeTimer = 0f;
+                hordeDuration = Random.Range(5f, 8f); // Randomize horde length
+                Debug.Log("[TileSpawner] Entering Horde Phase...");
+            }
+        }
+
+        Debug.Log($"[TileSpawner] Time: {elapsedTime:F2}s | Spawn Interval: {currentSpawnInterval:F2}s");
+
         Invoke(nameof(SpawnTile), currentSpawnInterval);
     }
 

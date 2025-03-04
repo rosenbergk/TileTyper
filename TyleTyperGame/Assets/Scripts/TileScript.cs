@@ -10,27 +10,33 @@ public class TileScript : MonoBehaviour
     public static float initialSpeed = 0.5f;
 
     [SerializeField] private float maximumSpeed = 5f;
-    [SerializeField] private float spawnIntervalAcceleration = 0.05f;
+    [SerializeField] private float growthRate = 0.05f;
+    [SerializeField] private float fluctationMagnitude = 0.3f;
+    [SerializeField] private float noiseSpeed = 0.1f;
 
     private TextMeshPro textMesh;
+    private float noiseOffset;
 
     public void SetTileWord(String word) {
         tileWord = word;
         if (textMesh != null) {
             textMesh.text = word;
-            Debug.Log("Tile created with word " + word);
-        } else {
-            Debug.Log("Text mesh is null");
         }
     }
 
     private void Awake() {
         textMesh = GetComponentInChildren<TextMeshPro>();
+        noiseOffset = UnityEngine.Random.Range(0f, 100f);
     }
     
     private void Start() {
         float elapsedTime = GameManager.Instance.GetElapsedTime();
-        currentSpeed = Mathf.Min(maximumSpeed, initialSpeed + spawnIntervalAcceleration * elapsedTime);
+        
+        float noise = Mathf.PerlinNoise(noiseOffset, elapsedTime * noiseSpeed) * 2f - 1f;
+
+        currentSpeed = Mathf.Min(maximumSpeed, initialSpeed + (elapsedTime * growthRate) + (noise * fluctationMagnitude));
+
+        Debug.Log($"[TileScript] Time: {elapsedTime:F2}s | Tile Speed: {currentSpeed:F2}");
     }
     
     private void Update()
