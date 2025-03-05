@@ -21,13 +21,21 @@ public class LevelSelectorManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void StartShapeLevel() {
+    public void StartShapeLevel()
+    {
         GameManager.Instance.StartGame(true);
         SceneManager.LoadScene("ShapeLevel");
     }
 
-    public void StartAnimalLevel() {
+    public void StartAnimalLevel()
+    {
         GameManager.Instance.StartGame(true);
         SceneManager.LoadScene("AnimalLevel");
+    }
+
+    public void StartStroopLevel()
+    {
+        GameManager.Instance.StartGame(true);
+        SceneManager.LoadScene("StroopLevel");
     }
 }

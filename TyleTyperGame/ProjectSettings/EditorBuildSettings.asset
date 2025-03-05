@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AnimalLevel.unity
     guid: 284c69baf41a37e4d8a8f6c4168e9e9c
+  - enabled: 1
+    path: Assets/Scenes/StroopLevel.unity
+    guid: 192e5e66ccbfbeb458b06d7441890254
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
