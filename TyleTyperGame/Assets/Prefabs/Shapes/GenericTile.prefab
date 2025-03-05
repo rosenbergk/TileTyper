@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 550036963082628958}
   - component: {fileID: 6322866560967157662}
   - component: {fileID: -9003664366341532550}
+  - component: {fileID: 2242993439459301668}
   m_Layer: 0
   m_Name: GenericTile
   m_TagString: Tile
@@ -324,6 +325,18 @@ MonoBehaviour:
   growthRate: 0.02
   fluctationMagnitude: 0.4
   noiseSpeed: 0.04
+--- !u!114 &2242993439459301668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416999976496670641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d801f52fc4ae8498099d822ccc95d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5943106853913545133
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,7 +44,7 @@ public class TileScript : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector2.down * currentSpeed * Time.deltaTime);
+        transform.Translate(Vector2.down * currentSpeed * Time.deltaTime, Space.World);
         if (transform.position.y < -8)
         {
             DisableTile();

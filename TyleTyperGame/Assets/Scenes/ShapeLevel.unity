@@ -2919,6 +2919,7 @@ MonoBehaviour:
   - {fileID: 151172050454618021, guid: 1de02456649d21349888783c79e7a6cc, type: 3}
   - {fileID: 7067709298779429523, guid: 4c8f49c7a9ba9a84e81e7f29e7ca7646, type: 3}
   - {fileID: 3758158786550265829, guid: c894a827aedf1fb40b805480b7633551, type: 3}
+  - {fileID: 1117431501085240014, guid: 8d5c89ff95cf4be4ca5e4881e839adce, type: 3}
   spawnRangeX: 7
   calmMinSpawnInterval: 3
   calmMaxSpawnInterval: 5
@@ -3508,6 +3509,7 @@ MonoBehaviour:
   - {fileID: 3758158786550265829, guid: c894a827aedf1fb40b805480b7633551, type: 3}
   - {fileID: 151172050454618021, guid: 1de02456649d21349888783c79e7a6cc, type: 3}
   - {fileID: 7067709298779429523, guid: 4c8f49c7a9ba9a84e81e7f29e7ca7646, type: 3}
+  - {fileID: 1117431501085240014, guid: 8d5c89ff95cf4be4ca5e4881e839adce, type: 3}
   poolSize: 3
 --- !u!4 &1998532119
 Transform:
