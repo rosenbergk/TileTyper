@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TypingManagerScript : MonoBehaviour {
+public class TypingManagerScript : MonoBehaviour
+{
     public TextMeshProUGUI playerInputText;
     private TextShakeEffect textShakeEffect;
 
@@ -34,26 +35,34 @@ public class TypingManagerScript : MonoBehaviour {
         }
     }
 
-private void Update()
-{
-    if (!GameManager.Instance.IsGameStarted()) 
+    private void Update()
     {
-        if (playerInputText != null)
+        if (!GameManager.Instance.IsGameStarted())
         {
-            playerInputText.text = "";
+            if (playerInputText != null)
+            {
+                playerInputText.text = "";
+            }
+            return;
         }
-        return;
+
+        HandleTypingInput();
     }
 
-    HandleTypingInput();
-}
-    private void HandleTypingInput() {
-        foreach (char c in Input.inputString) {
-            if (c == '\b' && currentInput.Length > 0) {
+    private void HandleTypingInput()
+    {
+        foreach (char c in Input.inputString)
+        {
+            if (c == '\b' && currentInput.Length > 0)
+            {
                 currentInput = currentInput.Substring(0, currentInput.Length - 1);
-            } else if (c == '\r' || c == '\n') {
+            }
+            else if (c == '\r' || c == '\n')
+            {
                 CheckForMatchingTile();
-            } else if (!char.IsControl(c)) {
+            }
+            else if (!char.IsControl(c))
+            {
                 currentInput += c;
                 AudioManager.Instance.PlayTypingSound();
             }
@@ -62,23 +71,30 @@ private void Update()
         }
         UpdateCursorDisplay();
     }
+
     private void UpdateCursorDisplay()
     {
         if (playerInputText != null)
         {
             string cursorColor = isCursorVisible ? "<alpha=#FF>" : "<alpha=#00>";
-            playerInputText.text = currentInput + cursorColor + "_</color>";        
+            playerInputText.text = currentInput + cursorColor + "_</color>";
         }
     }
 
-    private void CheckForMatchingTile() {
+    private void CheckForMatchingTile()
+    {
         bool wordFound = false;
-        
-        for (int i = 0; i < activeTiles.Count; ++i) {
-            if (activeTiles[i].tileWord.Equals(currentInput, System.StringComparison.OrdinalIgnoreCase)) {
+
+        for (int i = 0; i < activeTiles.Count; ++i)
+        {
+            if (
+                activeTiles[i]
+                    .tileWord.Equals(currentInput, System.StringComparison.OrdinalIgnoreCase)
+            )
+            {
                 GameManager.Instance.AddScore();
                 AudioManager.Instance.PlayCorrectWordSound();
-                activeTiles[i].DisableTile();
+                StartCoroutine(activeTiles[i].ZoomOutAndDisable(0.2f));
                 currentInput = "";
 
                 playerInputText.text = currentInput;
@@ -89,8 +105,10 @@ private void Update()
             }
         }
 
-        if (!wordFound) {
-            if (textShakeEffect != null) {
+        if (!wordFound)
+        {
+            if (textShakeEffect != null)
+            {
                 textShakeEffect.TriggerShake();
             }
         }
@@ -105,11 +123,14 @@ private void Update()
             yield return new WaitForSeconds(0.5f);
         }
     }
-    public void RegisterTile(TileScript tile) {
+
+    public void RegisterTile(TileScript tile)
+    {
         activeTiles.Add(tile);
     }
 
-    public void UnregisterTile(TileScript tile) {
+    public void UnregisterTile(TileScript tile)
+    {
         activeTiles.Remove(tile);
     }
 }
