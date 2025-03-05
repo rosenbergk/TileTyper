@@ -45,7 +45,7 @@ public class TutorialLevelManager : MonoBehaviour
 
         tutorialMessages.Enqueue("Type the word on a tile to destroy it!");
         tutorialMessages.Enqueue("Don't let tiles fall below the screen!");
-        tutorialMessages.Enqueue("Tiles get faster and spawn more frequently over time!");
+        tutorialMessages.Enqueue("Tiles get faster and fall in stronger hordes over time!");
         tutorialMessages.Enqueue("Good luck... ");
         tutorialMessages.Enqueue("...you're gonna need it!");
 
