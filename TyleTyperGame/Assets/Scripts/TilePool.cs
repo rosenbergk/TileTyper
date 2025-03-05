@@ -28,6 +28,7 @@ public class TilePool : MonoBehaviour
 
             for (int i = 0; i < poolSize; i++) {
                 GameObject obj = Instantiate(prefab);
+                obj.name = prefab.name;
                 obj.SetActive(false);
                 pool.Enqueue(obj.GetComponent<TileScript>());
             }
@@ -46,6 +47,7 @@ public class TilePool : MonoBehaviour
         foreach (GameObject prefab in tilePrefabs) {
             if (prefab.name == tileName) {
                 GameObject obj = Instantiate(prefab);
+                obj.name = prefab.name;
                 return obj.GetComponent<TileScript>();
             }
         }
