@@ -1,4 +1,5 @@
 // AudioManager.cs
+using System.Collections;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -7,8 +8,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip typingSound;
     public AudioClip correctWordSound;
     public AudioClip gameOverSound;
+    public AudioClip incorrectWordSound;
     private AudioSource audioSource;
-    
+
     private void Awake()
     {
         transform.SetParent(null);
@@ -34,6 +36,11 @@ public class AudioManager : MonoBehaviour
     public void PlayCorrectWordSound()
     {
         audioSource.PlayOneShot(correctWordSound);
+    }
+
+    public void PlayIncorrectWordSound()
+    {
+        audioSource.PlayOneShot(incorrectWordSound);
     }
 
     public void PlayGameOverSound()

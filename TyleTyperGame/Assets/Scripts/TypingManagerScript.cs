@@ -111,6 +111,8 @@ public class TypingManagerScript : MonoBehaviour
             {
                 textShakeEffect.TriggerShake();
             }
+
+            AudioManager.Instance.PlayIncorrectWordSound();
         }
     }
 

@@ -710,6 +710,7 @@ MonoBehaviour:
   typingSound: {fileID: 8300000, guid: 6673572b6c3d94d5aae30452cd1b86c4, type: 3}
   correctWordSound: {fileID: 8300000, guid: f9bf98cf8a89e44de91116a98cddd160, type: 3}
   gameOverSound: {fileID: 8300000, guid: 2f1ac0e66c26a46eb8887423cb30220a, type: 3}
+  incorrectWordSound: {fileID: 8300000, guid: beb376f59df47bd419a9bc22b1911f80, type: 3}
 --- !u!82 &305080543
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2919,8 +2920,14 @@ MonoBehaviour:
   - {fileID: 7067709298779429523, guid: 4c8f49c7a9ba9a84e81e7f29e7ca7646, type: 3}
   - {fileID: 3758158786550265829, guid: c894a827aedf1fb40b805480b7633551, type: 3}
   spawnRangeX: 7
-  minSpawnInterval: 0.5
-  spawnIntervalAcceleration: 0.05
+  calmMinSpawnInterval: 3
+  calmMaxSpawnInterval: 5
+  hordeMinSpawnInterval: 1
+  hordeMaxSpawnInterval: 1.5
+  calmPhaseDurationMin: 8
+  calmPhaseDurationMax: 12
+  hordePhaseDurationMin: 4
+  hordePhaseDurationMax: 7
 --- !u!4 &1734975106
 Transform:
   m_ObjectHideFlags: 0
