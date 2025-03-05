@@ -3,75 +3,87 @@ using UnityEngine;
 
 public class TileSpawner : MonoBehaviour
 {
-    public static float initialSpawnInterval = 5;
+    public static float initialSpawnInterval = 5f;
     public static float currentSpawnInterval;
 
-    [SerializeField] private GameObject[] tilePrefabs;
-    [SerializeField] private float spawnRangeX;
-    [SerializeField] private float minSpawnInterval;
-    [SerializeField] private float decayRate = 0.02f;
-    [SerializeField] private float fluctationMagnitude = 0.3f;
-    [SerializeField] private float noiseSpeed = 0.1f;
+    public enum SpawnState { Calm, Horde }
+    private SpawnState currentState;
 
-    private float noiseOffset;
-    private float hordeTimer = 0f;
-    private bool inHordePhase = false;
-    private float hordeDuration = 5f;
+    [SerializeField] private GameObject[] tilePrefabs;
+    [SerializeField] private float spawnRangeX = 10f;
+    [SerializeField] private float calmMinSpawnInterval = 3f;
+    [SerializeField] private float calmMaxSpawnInterval = 5f;
+    [SerializeField] private float hordeMinSpawnInterval = 1f;
+    [SerializeField] private float hordeMaxSpawnInterval = 1.5f;
+    [SerializeField] private float calmPhaseDurationMin = 8f;
+    [SerializeField] private float calmPhaseDurationMax = 12f;
+    [SerializeField] private float hordePhaseDurationMin = 4f;
+    [SerializeField] private float hordePhaseDurationMax = 7f;
+
+    private float phaseTimer;
+    private float currentPhaseDuration;
 
     private void Start()
     {
+        SetCalmPhase();
         currentSpawnInterval = initialSpawnInterval;
-        noiseOffset = Random.Range(0f, 100f);
-        Invoke(nameof(SpawnTile), initialSpawnInterval);
+        Invoke(nameof(SpawnTile), GetNextSpawnInterval());
     }
 
     private void SpawnTile()
     {
         GameObject randomTilePrefab = GetRandomTile();
         string tileName = randomTilePrefab.name;
-
         TileScript tileScript = TilePool.Instance.GetTile(tileName);
-
+        
         float randomX = Random.Range(-spawnRangeX, spawnRangeX);
-        Vector2 spawnPosition = new Vector2(randomX, transform.position.y);
-        tileScript.transform.position = spawnPosition;
-
+        tileScript.transform.position = new Vector2(randomX, transform.position.y);
+        
         tileScript.SetTileWord(tileName.Replace("Tile", ""));
-
-        float elapsedTime = GameManager.Instance.GetElapsedTime();
-        float noise = Mathf.PerlinNoise(noiseOffset, elapsedTime * noiseSpeed) * 2f - 1f;
-
-        if (inHordePhase)
+        
+        float spawnInterval = GetNextSpawnInterval();
+        currentSpawnInterval = spawnInterval;
+        
+        phaseTimer += spawnInterval;
+        
+        if (phaseTimer >= currentPhaseDuration)
         {
-            // Track how long we have been in the horde
-            hordeTimer += currentSpawnInterval;
-            if (hordeTimer >= hordeDuration)
-            {
-                inHordePhase = false;
-                hordeTimer = 0f;
-                Debug.Log("[TileSpawner] Exiting Horde Phase...");
-            }
-            // Keep spawn rate at 1s during horde
-            currentSpawnInterval = 1f;
+            SwitchPhase();
+        }
+        
+        Invoke(nameof(SpawnTile), spawnInterval);
+    }
+
+    private void SwitchPhase()
+    {
+        phaseTimer = 0;
+        if (currentState == SpawnState.Calm)
+        {
+            SetHordePhase();
         }
         else
         {
-            // Apply normal spawn rate logic
-            currentSpawnInterval = Mathf.Max(minSpawnInterval, initialSpawnInterval - (elapsedTime * decayRate) + (noise * fluctationMagnitude));
-
-            // If the interval reaches 1s, enter the horde phase ONCE
-            if (currentSpawnInterval <= 1f && !inHordePhase)
-            {
-                inHordePhase = true;
-                hordeTimer = 0f;
-                hordeDuration = Random.Range(5f, 8f); // Randomize horde length
-                Debug.Log("[TileSpawner] Entering Horde Phase...");
-            }
+            SetCalmPhase();
         }
+    }
 
-        Debug.Log($"[TileSpawner] Time: {elapsedTime:F2}s | Spawn Interval: {currentSpawnInterval:F2}s");
+    private void SetCalmPhase()
+    {
+        currentState = SpawnState.Calm;
+        currentPhaseDuration = Random.Range(calmPhaseDurationMin, calmPhaseDurationMax);
+    }
 
-        Invoke(nameof(SpawnTile), currentSpawnInterval);
+    private void SetHordePhase()
+    {
+        currentState = SpawnState.Horde;
+        currentPhaseDuration = Random.Range(hordePhaseDurationMin, hordePhaseDurationMax);
+    }
+
+    private float GetNextSpawnInterval()
+    {
+        return currentState == SpawnState.Calm ?
+            Random.Range(calmMinSpawnInterval, calmMaxSpawnInterval) :
+            Random.Range(hordeMinSpawnInterval, hordeMaxSpawnInterval);
     }
 
     private GameObject GetRandomTile()

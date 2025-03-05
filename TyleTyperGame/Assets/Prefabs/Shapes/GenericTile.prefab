@@ -321,9 +321,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileWord: 
   maximumSpeed: 5
-  growthRate: 0.035
+  growthRate: 0.02
   fluctationMagnitude: 0.4
-  noiseSpeed: 0.1
+  noiseSpeed: 0.04
 --- !u!1 &5943106853913545133
 GameObject:
   m_ObjectHideFlags: 0

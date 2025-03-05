@@ -10,9 +10,9 @@ public class TileScript : MonoBehaviour
     public static float initialSpeed = 0.5f;
 
     [SerializeField] private float maximumSpeed = 5f;
-    [SerializeField] private float growthRate = 0.05f;
-    [SerializeField] private float fluctationMagnitude = 0.3f;
-    [SerializeField] private float noiseSpeed = 0.1f;
+    [SerializeField] private float growthRate = 0.02f;
+    [SerializeField] private float fluctationMagnitude = 0.4f;
+    [SerializeField] private float noiseSpeed = 0.04f;
 
     private TextMeshPro textMesh;
     private float noiseOffset;

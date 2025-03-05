@@ -1503,7 +1503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &1029111559
 Rigidbody2D:
   serializedVersion: 5
@@ -2924,10 +2924,14 @@ MonoBehaviour:
   - {fileID: 2177516170662061588, guid: 134525dba7c9db04380efee1412bba69, type: 3}
   - {fileID: 5561586363295351505, guid: 1d23b85497809ec4793af968bc1a89aa, type: 3}
   spawnRangeX: 7
-  minSpawnInterval: 1
-  decayRate: 0.07
-  fluctationMagnitude: 0.5
-  noiseSpeed: 0.12
+  calmMinSpawnInterval: 3
+  calmMaxSpawnInterval: 5
+  hordeMinSpawnInterval: 1
+  hordeMaxSpawnInterval: 1.5
+  calmPhaseDurationMin: 8
+  calmPhaseDurationMax: 12
+  hordePhaseDurationMin: 4
+  hordePhaseDurationMax: 7
 --- !u!4 &1734975106
 Transform:
   m_ObjectHideFlags: 0
