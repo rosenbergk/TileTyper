@@ -38,4 +38,10 @@ public class LevelSelectorManager : MonoBehaviour
         GameManager.Instance.StartGame(true);
         SceneManager.LoadScene("StroopLevel");
     }
+
+    public void StartChallengeLevel()
+    {
+        GameManager.Instance.StartGame(true);
+        SceneManager.LoadScene("ChallengeLevel");
+    }
 }

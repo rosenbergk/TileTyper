@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StroopLevel.unity
     guid: 192e5e66ccbfbeb458b06d7441890254
+  - enabled: 1
+    path: Assets/Scenes/ChallengeLevel.unity
+    guid: 26bb9259457dd164aae84ca8f6de2877
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
