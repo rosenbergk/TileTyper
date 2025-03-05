@@ -1,5 +1,6 @@
 // TileSpawnerScipt.cs
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class TileSpawner : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class TileSpawner : MonoBehaviour
 
     private float phaseTimer;
     private float currentPhaseDuration;
+    private static int nextSortingOrder = 0;
 
     private void Start()
     {
@@ -64,6 +66,8 @@ public class TileSpawner : MonoBehaviour
         tileScript.transform.position = new Vector2(randomX, transform.position.y);
 
         tileScript.SetTileWord(tileName.Replace("Tile", ""));
+
+        SetSortingOrder(tileScript);
 
         float spawnInterval = GetNextSpawnInterval();
         currentSpawnInterval = spawnInterval;
@@ -114,6 +118,21 @@ public class TileSpawner : MonoBehaviour
     {
         int randomIndex = Random.Range(0, tilePrefabs.Length);
         return tilePrefabs[randomIndex];
+    }
+
+    private void SetSortingOrder(TileScript tileScript)
+    {
+        SortingGroup sg = tileScript.GetComponent<SortingGroup>();
+        if (sg == null)
+        {
+            sg = tileScript.gameObject.AddComponent<SortingGroup>();
+        }
+        sg.sortingOrder = nextSortingOrder++;
+    }
+
+    public static void ResetSortingOrder()
+    {
+        nextSortingOrder = 0;
     }
 
     // This is just to show the spawner width on scene view. This does not actually do anything and

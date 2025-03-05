@@ -22,8 +22,6 @@ public class TileScript : MonoBehaviour
     [SerializeField]
     private float noiseSpeed = 0.04f;
 
-    Collider2D topCollider;
-
     private TextMeshPro textMesh;
     private float noiseOffset;
     private Vector3 originalScale;
@@ -40,8 +38,6 @@ public class TileScript : MonoBehaviour
     private void Awake()
     {
         textMesh = GetComponentInChildren<TextMeshPro>();
-        topCollider = transform.Find("TopCollider").GetComponent<Collider2D>();
-        topCollider.enabled = true;
         noiseOffset = UnityEngine.Random.Range(0f, 100f);
         originalScale = transform.localScale;
     }
@@ -106,8 +102,6 @@ public class TileScript : MonoBehaviour
 
     public IEnumerator ZoomOutAndDisable(float duration)
     {
-        topCollider.enabled = false;
-
         Vector3 originalScale = transform.localScale;
         float elapsed = 0f;
         while (elapsed < duration)

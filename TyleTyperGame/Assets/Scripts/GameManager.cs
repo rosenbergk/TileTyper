@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
         gameOver = false;
         isTutorialMode = tutorialMode;
         gameStartTime = Time.time;
+        TileSpawner.ResetSortingOrder();
 
         Debug.Log("Game has started!");
 
