@@ -6,19 +6,43 @@ public class TileSpawner : MonoBehaviour
     public static float initialSpawnInterval = 5f;
     public static float currentSpawnInterval;
 
-    public enum SpawnState { Calm, Horde }
+    public enum SpawnState
+    {
+        Calm,
+        Horde,
+    }
+
     private SpawnState currentState;
 
-    [SerializeField] private GameObject[] tilePrefabs;
-    [SerializeField] private float spawnRangeX = 10f;
-    [SerializeField] private float calmMinSpawnInterval = 3f;
-    [SerializeField] private float calmMaxSpawnInterval = 5f;
-    [SerializeField] private float hordeMinSpawnInterval = 1f;
-    [SerializeField] private float hordeMaxSpawnInterval = 1.5f;
-    [SerializeField] private float calmPhaseDurationMin = 8f;
-    [SerializeField] private float calmPhaseDurationMax = 12f;
-    [SerializeField] private float hordePhaseDurationMin = 4f;
-    [SerializeField] private float hordePhaseDurationMax = 7f;
+    [SerializeField]
+    private GameObject[] tilePrefabs;
+
+    [SerializeField]
+    private float spawnRangeX = 10f;
+
+    [SerializeField]
+    private float calmMinSpawnInterval = 3f;
+
+    [SerializeField]
+    private float calmMaxSpawnInterval = 5f;
+
+    [SerializeField]
+    private float hordeMinSpawnInterval = 1f;
+
+    [SerializeField]
+    private float hordeMaxSpawnInterval = 1.5f;
+
+    [SerializeField]
+    private float calmPhaseDurationMin = 8f;
+
+    [SerializeField]
+    private float calmPhaseDurationMax = 12f;
+
+    [SerializeField]
+    private float hordePhaseDurationMin = 4f;
+
+    [SerializeField]
+    private float hordePhaseDurationMax = 7f;
 
     private float phaseTimer;
     private float currentPhaseDuration;
@@ -35,22 +59,22 @@ public class TileSpawner : MonoBehaviour
         GameObject randomTilePrefab = GetRandomTile();
         string tileName = randomTilePrefab.name;
         TileScript tileScript = TilePool.Instance.GetTile(tileName);
-        
+
         float randomX = Random.Range(-spawnRangeX, spawnRangeX);
         tileScript.transform.position = new Vector2(randomX, transform.position.y);
-        
+
         tileScript.SetTileWord(tileName.Replace("Tile", ""));
-        
+
         float spawnInterval = GetNextSpawnInterval();
         currentSpawnInterval = spawnInterval;
-        
+
         phaseTimer += spawnInterval;
-        
+
         if (phaseTimer >= currentPhaseDuration)
         {
             SwitchPhase();
         }
-        
+
         Invoke(nameof(SpawnTile), spawnInterval);
     }
 
@@ -81,9 +105,9 @@ public class TileSpawner : MonoBehaviour
 
     private float GetNextSpawnInterval()
     {
-        return currentState == SpawnState.Calm ?
-            Random.Range(calmMinSpawnInterval, calmMaxSpawnInterval) :
-            Random.Range(hordeMinSpawnInterval, hordeMaxSpawnInterval);
+        return currentState == SpawnState.Calm
+            ? Random.Range(calmMinSpawnInterval, calmMaxSpawnInterval)
+            : Random.Range(hordeMinSpawnInterval, hordeMaxSpawnInterval);
     }
 
     private GameObject GetRandomTile()
@@ -101,7 +125,13 @@ public class TileSpawner : MonoBehaviour
             new Vector3(transform.position.x - spawnRangeX, transform.position.y, 0),
             new Vector3(transform.position.x + spawnRangeX, transform.position.y, 0)
         );
-        Gizmos.DrawWireSphere(new Vector3(transform.position.x - spawnRangeX, transform.position.y, 0), 0.2f);
-        Gizmos.DrawWireSphere(new Vector3(transform.position.x + spawnRangeX, transform.position.y, 0), 0.2f);
+        Gizmos.DrawWireSphere(
+            new Vector3(transform.position.x - spawnRangeX, transform.position.y, 0),
+            0.2f
+        );
+        Gizmos.DrawWireSphere(
+            new Vector3(transform.position.x + spawnRangeX, transform.position.y, 0),
+            0.2f
+        );
     }
 }

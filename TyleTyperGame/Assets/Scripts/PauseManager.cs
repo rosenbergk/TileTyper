@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenuUI;
-    
+    [SerializeField]
+    private GameObject pauseMenuUI;
+
     private bool isPaused = false;
 
     void Update()
@@ -17,7 +18,8 @@ public class PauseManager : MonoBehaviour
 
     public void TogglePause()
     {
-        if (!GameManager.Instance.gameOver) {
+        if (!GameManager.Instance.gameOver)
+        {
             if (isPaused)
                 ResumeGame();
             else
@@ -25,19 +27,22 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    public void PauseGame() {
+    public void PauseGame()
+    {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
     }
 
-    public void ResumeGame() {
+    public void ResumeGame()
+    {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
     }
 
-    public void GoToMainMenu() {
+    public void GoToMainMenu()
+    {
         GameOverManager.GoToMainMenu();
     }
 }

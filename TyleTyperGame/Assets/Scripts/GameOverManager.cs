@@ -1,7 +1,7 @@
 // GameOverManager.cs
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class GameOverManager : MonoBehaviour
 {
@@ -27,8 +27,9 @@ public class GameOverManager : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
-        
-        if (SceneManager.GetActiveScene().name != "TutorialLevel") {
+
+        if (SceneManager.GetActiveScene().name != "TutorialLevel")
+        {
             finalScoreText.text = finalScore.ToString();
         }
     }

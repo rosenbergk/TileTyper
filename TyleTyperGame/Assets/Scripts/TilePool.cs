@@ -6,15 +6,23 @@ public class TilePool : MonoBehaviour
 {
     public static TilePool Instance { get; private set; }
 
-    [SerializeField] private GameObject[] tilePrefabs;
-    [SerializeField] private int poolSize = 20;
+    [SerializeField]
+    private GameObject[] tilePrefabs;
 
-    private Dictionary<string, Queue<TileScript>> tilePools = new Dictionary<string, Queue<TileScript>>();
+    [SerializeField]
+    private int poolSize = 20;
 
-    private void Awake() {
-        if (Instance == null) {
+    private Dictionary<string, Queue<TileScript>> tilePools =
+        new Dictionary<string, Queue<TileScript>>();
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
             Instance = this;
-        } else {
+        }
+        else
+        {
             Destroy(gameObject);
             return;
         }
@@ -22,11 +30,14 @@ public class TilePool : MonoBehaviour
         InitializePools();
     }
 
-    private void InitializePools() {
-        foreach (GameObject prefab in tilePrefabs) {
+    private void InitializePools()
+    {
+        foreach (GameObject prefab in tilePrefabs)
+        {
             Queue<TileScript> pool = new Queue<TileScript>();
 
-            for (int i = 0; i < poolSize; i++) {
+            for (int i = 0; i < poolSize; i++)
+            {
                 GameObject obj = Instantiate(prefab);
                 obj.name = prefab.name;
                 obj.SetActive(false);
@@ -37,15 +48,19 @@ public class TilePool : MonoBehaviour
         }
     }
 
-    public TileScript GetTile(string tileName) {
-        if (tilePools.ContainsKey(tileName) && tilePools[tileName].Count > 0) {
+    public TileScript GetTile(string tileName)
+    {
+        if (tilePools.ContainsKey(tileName) && tilePools[tileName].Count > 0)
+        {
             TileScript tile = tilePools[tileName].Dequeue();
             tile.gameObject.SetActive(true);
             return tile;
         }
 
-        foreach (GameObject prefab in tilePrefabs) {
-            if (prefab.name == tileName) {
+        foreach (GameObject prefab in tilePrefabs)
+        {
+            if (prefab.name == tileName)
+            {
                 GameObject obj = Instantiate(prefab);
                 obj.name = prefab.name;
                 return obj.GetComponent<TileScript>();
@@ -56,9 +71,11 @@ public class TilePool : MonoBehaviour
         return null;
     }
 
-    public void ReturnTile(TileScript tile) {
+    public void ReturnTile(TileScript tile)
+    {
         tile.gameObject.SetActive(false);
-        if (!tilePools.ContainsKey(tile.name)) {
+        if (!tilePools.ContainsKey(tile.name))
+        {
             tilePools[tile.name] = new Queue<TileScript>();
         }
         tilePools[tile.name].Enqueue(tile);

@@ -1,6 +1,6 @@
 // TextShakeEffect.cs
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class TextShakeEffect : MonoBehaviour
 {
@@ -14,7 +14,9 @@ public class TextShakeEffect : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         if (rectTransform == null)
         {
-            Debug.LogError("TextShakeEffect: No RectTransform found! Make sure this is a UI element.");
+            Debug.LogError(
+                "TextShakeEffect: No RectTransform found! Make sure this is a UI element."
+            );
         }
         originalPosition = rectTransform.anchoredPosition;
     }

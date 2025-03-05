@@ -1,9 +1,9 @@
 // StartMenuManager.cs
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class StartMenuManager : MonoBehaviour
 {
@@ -35,7 +35,7 @@ public class StartMenuManager : MonoBehaviour
 
     public void StartTutorialGame()
     {
-        GameManager.Instance.StartGame(true); 
+        GameManager.Instance.StartGame(true);
         SceneManager.LoadScene("TutorialLevel");
     }
 

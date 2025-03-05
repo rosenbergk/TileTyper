@@ -1,13 +1,14 @@
 // TutorialLevelManager
-using UnityEngine;
-using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 public class TutorialLevelManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI tutorialText;
-    
+    [SerializeField]
+    private TextMeshProUGUI tutorialText;
+
     private bool isTyping;
     private bool isDisplayingTutorial;
     private Queue<string> tutorialMessages = new Queue<string>();
@@ -31,17 +32,16 @@ public class TutorialLevelManager : MonoBehaviour
 
         Debug.Log("Tutorial Mode Activated!");
 
-        tutorialText.gameObject.SetActive(false); 
+        tutorialText.gameObject.SetActive(false);
         isDisplayingTutorial = true;
 
         GameManager.Instance.OnGameStarted += StartTutorialMessages;
     }
 
-
     private void StartTutorialMessages()
     {
         tutorialText.gameObject.SetActive(true);
-        tutorialText.text = blinkingCursor;       
+        tutorialText.text = blinkingCursor;
 
         tutorialMessages.Enqueue("Type the word on a tile to destroy it!");
         tutorialMessages.Enqueue("Don't let tiles fall below the screen!");
@@ -52,11 +52,12 @@ public class TutorialLevelManager : MonoBehaviour
         StartCoroutine(BlinkCursor());
         StartCoroutine(DisplayTutorialMessages());
     }
+
     private IEnumerator BlinkCursor()
     {
         bool isCursorVisible = true;
 
-        while (isDisplayingTutorial) 
+        while (isDisplayingTutorial)
         {
             if (!isTyping)
             {
@@ -99,21 +100,22 @@ public class TutorialLevelManager : MonoBehaviour
 
     private IEnumerator DisplayTutorialMessages()
     {
-
         while (tutorialMessages.Count > 0)
         {
             string message = tutorialMessages.Dequeue();
             yield return StartCoroutine(TypeMessage(message));
-            yield return new WaitForSeconds(4f); 
+            yield return new WaitForSeconds(4f);
         }
 
         Debug.Log("All tutorial messages displayed!");
         isDisplayingTutorial = false;
-        tutorialText.text = ""; 
+        tutorialText.text = "";
     }
 
-    private void OnDestroy() {
-        if (GameManager.Instance != null) {
+    private void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+        {
             GameManager.Instance.OnGameStarted -= StartTutorialMessages;
         }
     }

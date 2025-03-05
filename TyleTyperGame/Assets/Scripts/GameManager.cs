@@ -1,7 +1,7 @@
 // GameManager.cs
-using UnityEngine;
-using TMPro;
 using System;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -15,10 +15,11 @@ public class GameManager : MonoBehaviour
     private bool gameStarted = false;
     public event Action OnGameStarted;
 
-    void Start() {
+    void Start()
+    {
         score = 0;
         UpdateScoreUI();
-        
+
         TileScript.currentSpeed = TileScript.initialSpeed;
         TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
     }
@@ -38,12 +39,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
-    private void OnDestroy() {
+
+    private void OnDestroy()
+    {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         if (scene.name != "MainMenu" && scene.name != "LevelSelector")
         {
             score = 0;
@@ -57,8 +60,9 @@ public class GameManager : MonoBehaviour
             TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
         }
     }
-    
-    public void StartGame(bool tutorialMode = false) {
+
+    public void StartGame(bool tutorialMode = false)
+    {
         gameStarted = true;
         gameOver = false;
         isTutorialMode = tutorialMode;
@@ -77,7 +81,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (gameOver) return;
+        if (gameOver)
+            return;
         gameOver = true;
         Debug.Log("Game Over!");
 
@@ -90,13 +95,16 @@ public class GameManager : MonoBehaviour
             GameOverManager.Instance.ShowGameOver(score);
         }
     }
-    
-    public bool IsGameStarted() {
+
+    public bool IsGameStarted()
+    {
         return gameStarted && !gameOver;
     }
 
-    public void AddScore() {
-        if (!gameStarted) {
+    public void AddScore()
+    {
+        if (!gameStarted)
+        {
             Debug.Log("Game has not started");
             return;
         }
@@ -105,12 +113,16 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
     }
 
-    private void UpdateScoreUI() {
-        if (scoreText != null) {
+    private void UpdateScoreUI()
+    {
+        if (scoreText != null)
+        {
             scoreText.text = score.ToString();
-        } else {
+        }
+        else
+        {
             Debug.Log("Score text is null");
-        } 
+        }
     }
 
     private void FindScoreText()
@@ -129,7 +141,8 @@ public class GameManager : MonoBehaviour
 
     public float GetElapsedTime()
     {
-        if (!gameStarted) return 0;
+        if (!gameStarted)
+            return 0;
         return Time.time - gameStartTime;
     }
 }
