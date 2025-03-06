@@ -11,7 +11,6 @@ public class RandomTileColor : MonoBehaviour
             randomColor = Random.ColorHSV();
         } while (randomColor.Equals(Color.white));
 
-        Debug.Log("Tile OnEnable called. Random Color: " + randomColor);
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
         if (sr != null)

@@ -49,8 +49,6 @@ public class GameManager : MonoBehaviour
         gameStartTime = Time.time;
         TileSpawner.ResetSortingOrder();
 
-        Debug.Log("Game has started!");
-
         FindScoreText();
         UpdateScoreUI();
 
@@ -65,7 +63,6 @@ public class GameManager : MonoBehaviour
         if (gameOver)
             return;
         gameOver = true;
-        Debug.Log("Game Over!");
 
         if (isTutorialMode)
         {
@@ -86,11 +83,10 @@ public class GameManager : MonoBehaviour
     {
         if (!gameStarted)
         {
-            Debug.Log("Game has not started");
             return;
         }
+
         score++;
-        Debug.Log("Score is " + score);
         UpdateScoreUI();
     }
 
@@ -107,10 +103,6 @@ public class GameManager : MonoBehaviour
         {
             scoreText.text = score.ToString();
         }
-        else
-        {
-            Debug.Log("Score text is null");
-        }
     }
 
     private void FindScoreText()
@@ -119,11 +111,6 @@ public class GameManager : MonoBehaviour
         if (scoreObject != null)
         {
             scoreText = scoreObject.GetComponent<TextMeshProUGUI>();
-            Debug.Log("ScoreText found and assigned.");
-        }
-        else
-        {
-            Debug.LogError("Score text is null! Ensure it's tagged as 'ScoreText'.");
         }
     }
 

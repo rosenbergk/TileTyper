@@ -12,12 +12,6 @@ public class RainbowOutline : MonoBehaviour
     private void Awake()
     {
         outline = GetComponent<Outline>();
-        if (outline == null)
-        {
-            Debug.LogError(
-                "RainbowOutline script requires an Outline component on the same GameObject."
-            );
-        }
     }
 
     private void Update()

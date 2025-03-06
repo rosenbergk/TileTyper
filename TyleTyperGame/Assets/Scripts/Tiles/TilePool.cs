@@ -34,7 +34,6 @@ public class TilePool : MonoBehaviour
             }
         }
 
-        Debug.LogError($"No pool found for tile: {tileName}");
         return null;
     }
 

@@ -75,10 +75,6 @@ public class TileScript : MonoBehaviour
         {
             manager.RegisterTile(this);
         }
-        else
-        {
-            Debug.LogError("Typing Manager not found in the scene");
-        }
 
         float elapsedTime = GameManager.Instance.GetElapsedTime();
 
@@ -88,8 +84,6 @@ public class TileScript : MonoBehaviour
             maximumSpeed,
             initialSpeed + (elapsedTime * growthRate) + (noise * fluctationMagnitude)
         );
-
-        Debug.Log($"[TileScript] Time: {elapsedTime:F2}s | Tile Speed: {currentSpeed:F2}");
     }
 
     private void OnDisable()

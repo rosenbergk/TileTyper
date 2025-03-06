@@ -18,18 +18,14 @@ public class TutorialLevelManager : MonoBehaviour
     {
         if (!GameManager.Instance.isTutorialMode)
         {
-            Debug.LogError("Tutorial Mode is OFF, destroying TutorialLevelManager.");
             Destroy(gameObject);
             return;
         }
 
         if (tutorialText == null)
         {
-            Debug.LogError("tutorialText is NULL! Assign the UI Text in Unity.");
             return;
         }
-
-        Debug.Log("Tutorial Mode Activated!");
 
         tutorialText.gameObject.SetActive(false);
         isDisplayingTutorial = true;
@@ -69,8 +65,6 @@ public class TutorialLevelManager : MonoBehaviour
 
     private IEnumerator TypeMessage(string message)
     {
-        Debug.Log($"Typing message: {message}");
-
         isTyping = true;
         tutorialText.text = blinkingCursor;
 
@@ -106,7 +100,6 @@ public class TutorialLevelManager : MonoBehaviour
             yield return new WaitForSeconds(4f);
         }
 
-        Debug.Log("All tutorial messages displayed!");
         isDisplayingTutorial = false;
         tutorialText.text = "";
     }
