@@ -35,6 +35,21 @@ public class TileScript : MonoBehaviour
         }
     }
 
+    public IEnumerator ZoomOutAndDisable(float duration)
+    {
+        Vector3 originalScale = transform.localScale;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, elapsed / duration);
+            yield return null;
+        }
+
+        transform.localScale = Vector3.zero;
+        DisableTile();
+    }
+
     private void Awake()
     {
         textMesh = GetComponentInChildren<TextMeshPro>();
@@ -87,7 +102,7 @@ public class TileScript : MonoBehaviour
         }
     }
 
-    public void DisableTile()
+    private void DisableTile()
     {
         tileWord = "";
         if (textMesh != null)
@@ -98,20 +113,5 @@ public class TileScript : MonoBehaviour
         gameObject.SetActive(false);
         FindFirstObjectByType<TypingManagerScript>()?.UnregisterTile(this);
         TilePool.Instance.ReturnTile(this);
-    }
-
-    public IEnumerator ZoomOutAndDisable(float duration)
-    {
-        Vector3 originalScale = transform.localScale;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, elapsed / duration);
-            yield return null;
-        }
-
-        transform.localScale = Vector3.zero;
-        DisableTile();
     }
 }

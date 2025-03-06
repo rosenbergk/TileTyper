@@ -12,7 +12,6 @@ public class TutorialLevelManager : MonoBehaviour
     private bool isTyping;
     private bool isDisplayingTutorial;
     private Queue<string> tutorialMessages = new Queue<string>();
-
     private string blinkingCursor = "_";
 
     void Start()

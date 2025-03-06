@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TextShakeEffect : MonoBehaviour
 {
-    private Vector3 originalPosition;
-    private RectTransform rectTransform;
     public float shakeDuration = 0.3f;
     public float shakeMagnitude = 20f;
+
+    private Vector3 originalPosition;
+    private RectTransform rectTransform;
 
     void Start()
     {

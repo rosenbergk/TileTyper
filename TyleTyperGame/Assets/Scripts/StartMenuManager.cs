@@ -10,9 +10,10 @@ public class StartMenuManager : MonoBehaviour
     public GameObject startMenu;
     public TextMeshProUGUI startText;
     public EventSystem eventSystem;
+
     private bool gameStarted = false;
 
-    private void Start()
+    public void Start()
     {
         StartCoroutine(BlinkCursor());
     }

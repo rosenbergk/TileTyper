@@ -1,32 +1,23 @@
 // AudioManager.cs
-using System.Collections;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    public AudioClip typingSound;
-    public AudioClip correctWordSound;
-    public AudioClip gameOverSound;
-    public AudioClip incorrectWordSound;
+
+    [SerializeField]
+    private AudioClip typingSound;
+
+    [SerializeField]
+    private AudioClip correctWordSound;
+
+    [SerializeField]
+    private AudioClip gameOverSound;
+
+    [SerializeField]
+    private AudioClip incorrectWordSound;
+
     private AudioSource audioSource;
-
-    private void Awake()
-    {
-        transform.SetParent(null);
-
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        audioSource = GetComponent<AudioSource>();
-    }
 
     public void PlayTypingSound()
     {
@@ -46,5 +37,22 @@ public class AudioManager : MonoBehaviour
     public void PlayGameOverSound()
     {
         audioSource.PlayOneShot(gameOverSound);
+    }
+
+    private void Awake()
+    {
+        transform.SetParent(null);
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        audioSource = GetComponent<AudioSource>();
     }
 }

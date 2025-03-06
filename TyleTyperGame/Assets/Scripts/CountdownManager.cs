@@ -6,16 +6,9 @@ using UnityEngine;
 public class CountdownManager : MonoBehaviour
 {
     public TextMeshProUGUI countdownText;
+
     private float countdownTime = 5f;
     private bool countdownStarted = false;
-
-    private void OnEnable()
-    {
-        countdownTime = 5f;
-        countdownStarted = false;
-        countdownText.gameObject.SetActive(true);
-        StartCountdown();
-    }
 
     public void StartCountdown()
     {
@@ -40,5 +33,13 @@ public class CountdownManager : MonoBehaviour
         countdownText.gameObject.SetActive(false);
 
         GameManager.Instance.StartGame();
+    }
+
+    private void OnEnable()
+    {
+        countdownTime = 5f;
+        countdownStarted = false;
+        countdownText.gameObject.SetActive(true);
+        StartCountdown();
     }
 }

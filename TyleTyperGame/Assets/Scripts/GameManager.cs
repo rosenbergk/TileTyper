@@ -9,11 +9,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public TextMeshProUGUI scoreText;
     public bool isTutorialMode = false;
-    private float gameStartTime;
     public bool gameOver = false;
     public int score;
-    private bool gameStarted = false;
     public event Action OnGameStarted;
+
+    private float gameStartTime;
+    private bool gameStarted = false;
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
         TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
     }
 
-    private void Awake()
+    public void Awake()
     {
         transform.SetParent(null);
 
@@ -37,27 +38,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name != "MainMenu" && scene.name != "LevelSelector")
-        {
-            score = 0;
-            gameStarted = false;
-            gameOver = false;
-            gameStartTime = 0f;
-            isTutorialMode = (scene.name == "TutorialLevel");
-            FindScoreText();
-            UpdateScoreUI();
-            TileScript.currentSpeed = TileScript.initialSpeed;
-            TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
         }
     }
 
@@ -114,6 +94,13 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
     }
 
+    public float GetElapsedTime()
+    {
+        if (!gameStarted)
+            return 0;
+        return Time.time - gameStartTime;
+    }
+
     private void UpdateScoreUI()
     {
         if (scoreText != null)
@@ -140,10 +127,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public float GetElapsedTime()
+    private void OnDestroy()
     {
-        if (!gameStarted)
-            return 0;
-        return Time.time - gameStartTime;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != "MainMenu" && scene.name != "LevelSelector")
+        {
+            score = 0;
+            gameStarted = false;
+            gameOver = false;
+            gameStartTime = 0f;
+            isTutorialMode = (scene.name == "TutorialLevel");
+            FindScoreText();
+            UpdateScoreUI();
+            TileScript.currentSpeed = TileScript.initialSpeed;
+            TileSpawner.currentSpawnInterval = TileSpawner.initialSpawnInterval;
+        }
     }
 }

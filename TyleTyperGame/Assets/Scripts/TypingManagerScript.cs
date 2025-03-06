@@ -7,13 +7,23 @@ using UnityEngine;
 public class TypingManagerScript : MonoBehaviour
 {
     public TextMeshProUGUI playerInputText;
-    private TextShakeEffect textShakeEffect;
 
+    private TextShakeEffect textShakeEffect;
     private string currentInput = "";
     private List<TileScript> activeTiles = new List<TileScript>();
     private Coroutine blinkingCoroutine;
     private bool isCursorVisible = true;
     private bool hasStartedBlinking = false;
+
+    public void RegisterTile(TileScript tile)
+    {
+        activeTiles.Add(tile);
+    }
+
+    public void UnregisterTile(TileScript tile)
+    {
+        activeTiles.Remove(tile);
+    }
 
     private void Start()
     {
@@ -124,15 +134,5 @@ public class TypingManagerScript : MonoBehaviour
             UpdateCursorDisplay();
             yield return new WaitForSeconds(0.5f);
         }
-    }
-
-    public void RegisterTile(TileScript tile)
-    {
-        activeTiles.Add(tile);
-    }
-
-    public void UnregisterTile(TileScript tile)
-    {
-        activeTiles.Remove(tile);
     }
 }

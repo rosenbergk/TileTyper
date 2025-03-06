@@ -15,39 +15,6 @@ public class TilePool : MonoBehaviour
     private Dictionary<string, Queue<TileScript>> tilePools =
         new Dictionary<string, Queue<TileScript>>();
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        InitializePools();
-    }
-
-    private void InitializePools()
-    {
-        foreach (GameObject prefab in tilePrefabs)
-        {
-            Queue<TileScript> pool = new Queue<TileScript>();
-
-            for (int i = 0; i < poolSize; i++)
-            {
-                GameObject obj = Instantiate(prefab);
-                obj.name = prefab.name;
-                obj.SetActive(false);
-                pool.Enqueue(obj.GetComponent<TileScript>());
-            }
-
-            tilePools[prefab.name] = pool;
-        }
-    }
-
     public TileScript GetTile(string tileName)
     {
         if (tilePools.ContainsKey(tileName) && tilePools[tileName].Count > 0)
@@ -79,5 +46,38 @@ public class TilePool : MonoBehaviour
             tilePools[tile.name] = new Queue<TileScript>();
         }
         tilePools[tile.name].Enqueue(tile);
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        InitializePools();
+    }
+
+    private void InitializePools()
+    {
+        foreach (GameObject prefab in tilePrefabs)
+        {
+            Queue<TileScript> pool = new Queue<TileScript>();
+
+            for (int i = 0; i < poolSize; i++)
+            {
+                GameObject obj = Instantiate(prefab);
+                obj.name = prefab.name;
+                obj.SetActive(false);
+                pool.Enqueue(obj.GetComponent<TileScript>());
+            }
+
+            tilePools[prefab.name] = pool;
+        }
     }
 }

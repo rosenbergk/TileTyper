@@ -13,6 +13,7 @@ public class RandomTileColor : MonoBehaviour
 
         Debug.Log("Tile OnEnable called. Random Color: " + randomColor);
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
+
         if (sr != null)
         {
             sr.color = randomColor;

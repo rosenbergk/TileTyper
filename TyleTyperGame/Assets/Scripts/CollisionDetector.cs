@@ -1,6 +1,5 @@
 // CollisionDetector.cs
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CollisionDetector : MonoBehaviour
 {

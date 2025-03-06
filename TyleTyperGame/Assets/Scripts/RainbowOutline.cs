@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class RainbowOutline : MonoBehaviour
 {
-    private Outline outline;
-
     [SerializeField]
     private float colorCycleSpeed = 1f;
+
+    private Outline outline;
 
     private void Awake()
     {

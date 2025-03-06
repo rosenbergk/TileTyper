@@ -13,8 +13,6 @@ public class TileSpawner : MonoBehaviour
         Horde,
     }
 
-    private SpawnState currentState;
-
     [SerializeField]
     private GameObject[] tilePrefabs;
 
@@ -45,9 +43,15 @@ public class TileSpawner : MonoBehaviour
     [SerializeField]
     private float hordePhaseDurationMax = 7f;
 
+    private SpawnState currentState;
     private float phaseTimer;
     private float currentPhaseDuration;
     private static int nextSortingOrder = 0;
+
+    public static void ResetSortingOrder()
+    {
+        nextSortingOrder = 0;
+    }
 
     private void Start()
     {
@@ -128,29 +132,5 @@ public class TileSpawner : MonoBehaviour
             sg = tileScript.gameObject.AddComponent<SortingGroup>();
         }
         sg.sortingOrder = nextSortingOrder++;
-    }
-
-    public static void ResetSortingOrder()
-    {
-        nextSortingOrder = 0;
-    }
-
-    // This is just to show the spawner width on scene view. This does not actually do anything and
-    // is not seen on the game view
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(
-            new Vector3(transform.position.x - spawnRangeX, transform.position.y, 0),
-            new Vector3(transform.position.x + spawnRangeX, transform.position.y, 0)
-        );
-        Gizmos.DrawWireSphere(
-            new Vector3(transform.position.x - spawnRangeX, transform.position.y, 0),
-            0.2f
-        );
-        Gizmos.DrawWireSphere(
-            new Vector3(transform.position.x + spawnRangeX, transform.position.y, 0),
-            0.2f
-        );
     }
 }

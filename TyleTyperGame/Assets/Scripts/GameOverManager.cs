@@ -10,7 +10,7 @@ public class GameOverManager : MonoBehaviour
     public GameObject gameOverPanel;
     public TextMeshProUGUI finalScoreText;
 
-    private void Awake()
+    public void Awake()
     {
         if (Instance == null)
         {
